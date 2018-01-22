@@ -1,0 +1,23 @@
+{% comment %}Add this snippet to you article template, before the main body of your content.{% endcomment %}
+<script type="application/ld+json">// <![CDATA[
+{ "@context": "http://schema.org", 
+ "@type": "Article",
+ "headline": "{{ article.title}}",
+"mainEntityOfPage": "{{ canonical_url }}",
+ "alternativeHeadline": "{{ page_title }}",
+ "image": { "@type": "imageObject", "url": "https:{{ article.image | img_url: '700x314' }}", "height": "314px", "width": "700px"},
+ "author": "{{ shop.name }}", 
+ "genre": "Cosmetics & Beauty Products", {% comment %}Manually amend this for your industry{% endcomment %}
+ "keywords": "{% for tag in article.tags %}{{tag}}{% unless tag == article.tags.last %}, {% endunless%}{% endfor%}", {% assign word-count = article.content | strip_html | strip_newlines | downcase | split:' ' %}
+ "wordcount": "{{ word-count.size}}",
+ "publisher": {
+ 	{% include 'schema.json.snippet-organisation' %}
+ },
+ "url": "{{ canonical_url }}",
+ "datePublished": "{{ article.published_at}}",
+ "dateCreated": "{{ article.created_at}}",
+ "dateModified": "{{ article.published_at }}",
+ "description": "{{ page_description }}",
+ "articleBody": "{{ article.content | strip_html | escape }}"
+ }
+// ]]></script>
