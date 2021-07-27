@@ -23,7 +23,7 @@ You will have your typical heading description stuff here. There is a logic chec
 You will have a bunch of stuff, like your product loop, pagination etc. After that ends, add logic for the Texbtox B.
 There are checks to see if it is not blank, if the content is untagged and you are on page 1 of a Shopify collection.
 If your Shopify store has a customisation to modify page titles & tags you may have to modify this script
-{% endcoment %}
+{% endcomment %}
 
 {% if collection.tags.size == collection.all_tags.size %}{% assign is_root = true %}{% else %}{% assign is_root = false %}{% endif %}
 {% if textbox-b != blank and is_root == true and current-page == 1 %}
