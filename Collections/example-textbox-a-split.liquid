@@ -1,0 +1,31 @@
+{% comment %]
+This logic should appear at the top of the collection template, to assign different text areas into different sections.
+The SPLIT filter with break the default test description into different parts that may be reused throughout the website.
+In this example, we are splitting the description into two parts, that can be reused.
+Textbox-A is assigned to the first item of the array.
+Textbox B is assigned to the second item in the array, i.e. all content after ***** 
+{% endcomment %}
+
+{% assign collection-description-array = collection.description | split: "*****" %}
+{% assign textbox-a = collection-description-array.first %}
+{% assign textbox-b = collection-description-array[1] %}
+
+{% comment %}
+You will have your typical heading description stuff here. There is a logic check in case it is blank.
+{% endcomment %}
+
+% if collection.description != blank %}
+        {{ textbox-a }}
+      </div>
+{% endif %}
+
+{% comment %}
+You will have a bunch of stuff, like your product loop, pagination etc. After that ends, add logic for the Texbtox B.
+There are checks to see if it is not blank, if the content is untagged and you are on page 1 of a Shopify collection.
+If your Shopify store has a customisation to modify page titles & tags you may have to modify this script
+{% endcoment %}
+
+{% if collection.tags.size == collection.all_tags.size %}{% assign is_root = true %}{% else %}{% assign is_root = false %}{% endif %}
+{% if textbox-b != blank and is_root == true and current-page == 1 %}
+{{ textbox-b }}
+{% endif %}
